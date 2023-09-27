@@ -1,5 +1,8 @@
 package com.javatpoint.model;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -12,67 +15,66 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
-@Entity
-@Table
-public class Box {
-	@Id
-	@Column
-	private int boxId;
-	@Column
-	private String boxName;
-	@Column
-	private String photoUrl;
-	
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+@Entity @Table public class Box {
+    @Id @Column private int boxId;
+    @Column private String boxName;
+    @Column private String photoUrl;
+
+    @ManyToOne(
+        fetch = FetchType.LAZY,
+        optional = false
+    )
     @JoinColumn(name = "shelfId")
     @OnDelete(action = OnDeleteAction.CASCADE)
     //@JsonIdentityReference(alwaysAsId=true)
     //@JsonProperty("shelfId")
-	private Shelf shelf;
+    private Shelf shelf;
 
-	@OneToMany(mappedBy = "box", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private List<Item> item;
-	
-	//public Shelf getShelf() {
-	//	return shelf;
-	//}
+    @OneToMany(
+        mappedBy = "box",
+        fetch = FetchType.LAZY,
+        cascade = CascadeType.ALL
+    )
+    private List<Item> item;
 
-	public void setShelf(Shelf shelf) {
-		this.shelf = shelf;
-	}
+    //public Shelf getShelf() {
+    //      return shelf;
+    //}
 
-	public String getBoxName() {
-		return boxName;
-	}
+    public void setShelf(Shelf shelf) {
+        this.shelf = shelf;
+    }
 
-	public int getBoxId() {
-		return boxId;
-	}
+    public String getBoxName() {
+        return boxName;
+    }
 
-	public void setBoxId(int boxId) {
-		this.boxId = boxId;
-	}
+    public int getBoxId() {
+        return boxId;
+    }
 
-	public String getPhotoUrl() {
-		return photoUrl;
-	}
+    public void setBoxId(int boxId) {
+        this.boxId = boxId;
+    }
 
-	public void setPhotoUrl(String photoUrl) {
-		this.photoUrl = photoUrl;
-	}
+    public String getPhotoUrl() {
+        return photoUrl;
+    }
 
-	public void setBoxName(String boxName) {
-		this.boxName = boxName;
-	}
-	
-	
-	@Override
-	public String toString() {
-		return "Box [boxId=" + boxId + ", boxName=" + boxName + ", photoUrl=" + photoUrl + "]";
-	}
+    public void setPhotoUrl(String photoUrl) {
+        this.photoUrl = photoUrl;
+    }
 
-	
+    public void setBoxName(String boxName) {
+        this.boxName = boxName;
+    }
+
+
+    @Override public String toString() {
+        return "Box [boxId=" + boxId + ", boxName=" + boxName + ", photoUrl=" +
+            photoUrl + "]";
+    }
+
+
 }
